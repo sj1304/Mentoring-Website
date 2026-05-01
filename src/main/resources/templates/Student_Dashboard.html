@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>elevateU | Student Dashboard</title>
+    <link rel="stylesheet" href="/css/HeaderFooter.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-teal: #2d5a4c;
+            --light-teal: #e8f0ee;
+            --wellness-green: #2e7d32;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ── Navigation ── */
+        .top-nav {
+            background: white;
+            padding: 10px 5%;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-brand {
+            color: var(--wellness-green);
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            background: #e74c3c;
+            color: white;
+            border-radius: 5px;
+            padding: 5px 15px;
+            border: none;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-logout:hover { background: #c0392b; color: white; }
+
+        /* ── Student Info Strip ── */
+        .student-strip {
+            background: white;
+            padding: 12px 0;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .student-info-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: #444;
+            flex-wrap: wrap;
+        }
+
+        .cap-icon { color: var(--primary-teal); font-size: 1.4rem; }
+        .divider { color: #ccc; font-weight: 300; }
+
+        /* ── Main Content ── */
+        .main-content { flex: 1; padding: 40px 0; }
+
+        /* ── Section Heading ── */
+        .section-heading {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #888;
+            margin-bottom: 16px;
+            padding-left: 4px;
+            border-left: 4px solid var(--wellness-green);
+            padding-left: 10px;
+        }
+
+        /* ── Dashboard Cards ── */
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #efefef;
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            color: inherit;
+        }
+
+        /* ── Goal Tracking Cards ── */
+        .goal-hub-card { border-top: 5px solid var(--wellness-green); }
+        .my-goals-card { border-top: 5px solid #0d6efd; }
+
+        /* ── Personality Cards ── */
+        .personality-card {
+            border-top: 5px solid #8b5cf6;
+        }
+
+        /* ── Count Badge ── */
+        .count-badge {
+            display: inline-block;
+            background: #eef6f4;
+            color: var(--wellness-green);
+            font-size: 28px;
+            font-weight: 700;
+            padding: 6px 20px;
+            border-radius: 20px;
+            margin: 10px 0;
+        }
+
+        .count-badge-purple {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        /* ── Buttons ── */
+        .card-btn-green {
+            background: var(--wellness-green);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s;
+        }
+        .card-btn-green:hover { background: #1b5e20; color: white; }
+
+        .card-btn-blue {
+            background: #0d6efd;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s;
+        }
+        .card-btn-blue:hover { background: #0b5ed7; color: white; }
+
+        .card-btn-purple {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s;
+        }
+        .card-btn-purple:hover { background: #7c3aed; color: white; }
+
+        /* ── Footer ── */
+        footer {
+            background: #2d403e;
+            color: white;
+            padding: 40px 5%;
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+
+        .footer-link {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-link:hover { color: white; }
+
+        /* ── Divider between sections ── */
+        .section-divider {
+            border: none;
+            border-top: 2px dashed #e0e0e0;
+            margin: 32px 0 24px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="nav_left">
+            <img src="/images/logoImg.png" alt="elevateU logo">
+            <strong class="brand-name">elevateU</strong>
+        </div>
+
+        <div class="nav_center">
+            <!-- ✅ routes fixed -->
+            <a href="/">Home</a>
+            <a href="/about">About Us</a>
+            <a href="#footer">Contact Us</a>
+        </div>
+
+        <div class="nav_right">
+            <a href="/notifications" class="icon bell">
+                <i class="fa-solid fa-bell"></i>
+            </a>
+
+            <a href="/profile" class="icon">
+                <i class="fa-solid fa-user"></i>
+            </a>
+
+            <a href="/logout" class="logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+
+        </div>
+    </nav>
+</header>
+
+
+
+<div class="student-strip">
+    <div class="container">
+        <div class="student-info-box">
+            <i class="fa-solid fa-user-graduate cap-icon"></i>
+            <span><strong th:text="${studentName}">Student Name</strong></span>
+            <span class="divider">|</span>
+            <span>Roll No: <strong th:text="${studentRoll}">--</strong></span>
+            <span class="divider">|</span>
+            <span>Programme: <strong th:text="${studentProgramme}">Programme</strong></span>
+            <span class="divider">|</span>
+            <span>Semester: <strong th:text="${studentSemester}">1</strong></span>
+        </div>
+    </div>
+</div>
+
+<main class="container main-content">
+
+    <p class="section-heading">
+        <i class="fa-solid fa-bullseye me-2"></i> Goal Management
+    </p>
+
+    <div class="row g-4 justify-content-center mb-2">
+        <div class="col-md-6">
+            <div class="dashboard-card goal-hub-card shadow-sm">
+                <i class="fa-solid fa-calendar-plus fs-1 text-success mb-3"></i>
+                <h3 class="fw-bold">Set Goals</h3>
+                <p class="text-muted px-md-4">
+                    Create and plan your 30-day goal cycle. Define your targets
+                    across Physical, Mental, Academic, and Social pillars.
+                </p>
+                <a href="/goal-hub" class="card-btn-green">
+                    <i class="fa-solid fa-plus me-2"></i> Set New Goals
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="dashboard-card my-goals-card shadow-sm">
+                <i class="fa-solid fa-list-check fs-1 text-primary mb-3"></i>
+                <h3 class="fw-bold">My Goals</h3>
+                <p class="text-muted px-md-4">
+                    Track your active goals and update your daily progress.
+                    Monitor your milestones and stay consistent.
+                </p>
+                <a href="/my-goals" class="card-btn-blue">
+                    <i class="fa-solid fa-chart-line me-2"></i> Update Progress
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <p class="section-heading">
+        <i class="fa-solid fa-brain me-2"></i> Personality Assessment
+    </p>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+            <div class="dashboard-card personality-card shadow-sm">
+                <i class="fa-solid fa-file-signature fs-2 mb-3" style="color:#8b5cf6;"></i>
+                <h5>Assigned Tests</h5>
+                <p class="small text-muted">Assessment tests assigned by your mentor.</p>
+                <span class="count-badge count-badge-purple" th:text="${assignedCount}">0</span>
+                <a href="/tests" class="card-btn-purple">
+                    <i class="fa-solid fa-eye me-1"></i> View Tests
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card personality-card shadow-sm">
+                <i class="fa-solid fa-clock-rotate-left fs-2 mb-3" style="color:#8b5cf6;"></i>
+                <h5>Completed Tests</h5>
+                <p class="small text-muted">Review your previously submitted assessments.</p>
+                <span class="count-badge count-badge-purple" th:text="${completedCount}">0</span>
+                <a href="/tests#completed" class="card-btn-purple">
+                    <i class="fa-solid fa-history me-1"></i> View History
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card personality-card shadow-sm">
+                <i class="fa-solid fa-chart-line fs-2 mb-3" style="color:#8b5cf6;"></i>
+                <h5>My Results</h5>
+                <p class="small text-muted">View your personality type and performance analysis.</p>
+                <a href="/results" class="card-btn-purple">
+                    <i class="fa-solid fa-star me-1"></i> View Results
+                </a>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer id="footer">
+    <div class="footer_brand">
+        <strong class="brand-name">elevateU</strong>
+        <p class="tagline">Test, Talk, Transform.</p>
+    </div>
+
+    <div class="footer_links">
+        <strong>Quick Links</strong>
+        <ul>
+            <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/iqac">IQAC</a></li>
+        </ul>
+    </div>
+
+    <div class="footer_contact">
+        <strong>Contact Us</strong>
+        <p> elevateU Support Team</p>
+
+        <p><i class="fa-solid fa-location-dot"></i> Fergusson College
+            F.C. Road, Pune 411004.</p>
+
+        <p><i class="fa-solid fa-phone"></i> 020-67656000 </p>
+
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:wellness@gmail.com">elevateU@gmail.com</a></p>
+    </div>
+
+    <div class="rights_reserve">
+        © 2026 elevateU. All rights reserved.
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

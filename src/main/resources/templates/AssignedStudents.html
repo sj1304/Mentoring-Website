@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Assigned Students | elevateU</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/reports.css}">
+    <link rel="stylesheet" href="/css/HeaderFooter.css">
+
+    <style>
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+        /* Custom overrides to match reports.html exactly */
+        .back-btn-container {
+          padding: 20px 5% 0 5%;
+        }
+
+        .back-dashboard-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 20px;
+          background-color: #ffffff;
+          color: #2e7d32;
+          text-decoration: none;
+          font-weight: 600;
+          border-radius: 8px;
+          border: 1.5px solid #2e7d32;
+          transition: all 0.3s ease;
+        }
+
+        .back-dashboard-btn:hover {
+          background-color: #2e7d32;
+          color: #ffffff;
+          transform: translateX(-5px);
+        }
+
+        .table-card {
+          background: white;
+          padding: 30px;
+          border-radius: 15px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+          margin: 20px 5% 50px 5%;
+        }
+
+        .section-title {
+          border-left: 5px solid #2e7d32;
+          padding-left: 15px;
+          font-weight: 700;
+          color: #333;
+          margin-bottom: 25px;
+        }
+
+        .progress { height: 12px; border-radius: 6px; background-color: #e9ecef; }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="nav_left">
+            <img src="/images/logoImg.png" alt="elevateU logo">
+            <strong class="brand-name">elevateU</strong>
+        </div>
+
+        <div class="nav_center">
+            <a href="/">Home</a>
+            <a href="/about">About Us</a>
+            <a href="#footer">Contact Us</a>
+        </div>
+
+        <div class="nav_right">
+            <a href="/notifications" aria-label="Notifications">
+                <i class="fa-solid fa-bell icon bell"></i>
+            </a>
+
+            <a href="/profile" aria-label="Profile">
+                <i class="fa-solid fa-user icon"></i>
+            </a>
+
+            <a href="/logout" class="logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </nav>
+</header>
+
+<section class="mentor-header">
+    <i class="fa-solid fa-circle-user mentor-icon"></i>
+    <div class="mentor-info">
+        <span class="mentor-name" th:text="${mentorName}">Admin Prof</span>
+        <span class="divider">|</span>
+        <span th:text="${mentorDept}">Psychology</span>
+        <span class="divider">|</span>
+        <span th:text="${mentorLevel}">UG</span>
+        <span class="divider">|</span>
+        <span th:text="${mentorDesignation}">Assistant Professor</span>
+    </div>
+</section>
+
+<div class="back-btn-container">
+    <a href="/mentor_dashboard" class="back-dashboard-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+
+<div class="table-card">
+    <h4 class="section-title">My Assigned Students</h4>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+            <tr>
+                <th style="width: 15%;">Roll No</th>
+                <th style="width: 45%;">Student Name</th>
+                <th style="width: 40%;">Goal Completion Progress</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="s : ${students}">
+                <td th:text="${s['rollNo']}">--</td>
+                <td class="fw-bold" th:text="${s['firstName']} + ' ' + ${s['lastName']}">Full Name</td>
+                <td>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="progress flex-grow-1">
+                            <div class="progress-bar bg-success" role="progressbar"
+                                 th:style="'width: ' + ${s['progress']} + '%'">
+                            </div>
+                        </div>
+                        <span class="fw-bold text-success" th:text="${s['progress']} + '%'">0%</span>
+                    </div>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(students)}">
+                <td colspan="3" class="text-center py-5 text-muted">
+                    <i class="fa-solid fa-user-slash fa-2x mb-2"></i><br>
+                    No students are currently assigned to your profile.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer id="footer">
+    <div class="footer_brand">
+        <strong class="brand-name">elevateU</strong>
+        <p class="tagline">Test, Talk, Transform.</p>
+    </div>
+
+    <div class="footer_links">
+        <strong>Quick Links</strong>
+        <ul>
+            <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/iqac">IQAC</a></li>
+        </ul>
+    </div>
+
+    <div class="footer_contact">
+        <strong>Contact Us</strong>
+        <p> elevateU Support Team</p>
+
+        <p><i class="fa-solid fa-location-dot"></i> Fergusson College
+            F.C. Road, Pune 411004.</p>
+
+        <p><i class="fa-solid fa-phone"></i> 020-67656000 </p>
+
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:wellness@gmail.com">elevateU@gmail.com</a></p>
+    </div>
+
+    <div class="rights_reserve">
+        © 2026 elevateU. All rights reserved.
+    </div>
+</footer>
+</body>
+</html>

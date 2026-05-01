@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Personality Result</title>
+  <link rel="stylesheet" href="/css/HeaderFooter.css">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="/css/Student_Db.css">
+  <style>
+    .result-wrapper {
+        max-width: 700px;
+        margin: 50px auto;
+        padding: 24px;
+        text-align: center;
+    }
+
+    .result-card {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border-radius: 20px;
+        padding: 48px 32px;
+        margin-bottom: 32px;
+        box-shadow: 0 8px 32px rgba(102,126,234,0.4);
+    }
+
+    .personality-label {
+        font-size: 48px;
+        font-weight: 900;
+        letter-spacing: 4px;
+        margin: 16px 0;
+    }
+
+    .personality-desc {
+        font-size: 15px;
+        opacity: 0.9;
+        max-width: 400px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .history-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+
+    .type-badge {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+    .EXTROVERT  { background:#fef3c7; color:#92400e; }
+    .INTROVERT  { background:#dbeafe; color:#1e3a8a; }
+    .ANALYTICAL { background:#d1fae5; color:#065f46; }
+    .AMIABLE    { background:#fce7f3; color:#9d174d; }
+    .AMBIVERT   { background:#ede9fe; color:#5b21b6; }
+
+    .warning-box {
+        background:#fef3c7;
+        padding:14px;
+        border-radius:10px;
+        margin-bottom:20px;
+        color:#92400e;
+        font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="nav_left">
+      <img src="/images/logoImg.png" alt="elevateU logo">
+      <strong class="brand-name">elevateU</strong>
+    </div>
+
+    <div class="nav_center">
+      <!-- ✅ routes fixed -->
+      <a href="/">Home</a>
+      <a href="/about">About Us</a>
+      <a href="#footer">Contact Us</a>
+    </div>
+
+    <div class="nav_right">
+      <a href="/notifications" class="icon bell">
+        <i class="fa-solid fa-bell"></i>
+      </a>
+
+      <a href="/profile" class="icon">
+        <i class="fa-solid fa-user"></i>
+      </a>
+
+      <a href="/logout" class="logout">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </a>
+    </div>
+  </nav>
+</header>
+
+<main class="result-wrapper">
+
+  <!-- ── Already attempted warning ── -->
+  <div th:if="${alreadyDone}" class="warning-box">
+    ⚠️ You have already attempted this test. Showing your saved results below.
+  </div>
+
+  <!-- ── Fresh result card — shown right after submission ── -->
+  <div th:if="${personalityType != null}" class="result-card">
+    <i class="fa-solid fa-brain" style="font-size:50px;"></i>
+    <p style="font-size:18px; margin:12px 0 4px;">Your Personality Type is</p>
+    <div class="personality-label" th:text="${personalityType}"></div>
+
+    <p class="personality-desc"
+       th:if="${#strings.equals(personalityType, 'EXTROVERT')}">
+      You are energized by social interaction, thrive in groups,
+      and love sharing your thoughts with others.
+    </p>
+    <p class="personality-desc"
+       th:if="${#strings.equals(personalityType, 'INTROVERT')}">
+      You recharge through alone time, think deeply,
+      and prefer meaningful one-on-one connections.
+    </p>
+    <p class="personality-desc"
+       th:if="${#strings.equals(personalityType, 'ANALYTICAL')}">
+      You are logical, detail-oriented, and love solving
+      complex problems with data and research.
+    </p>
+    <p class="personality-desc"
+       th:if="${#strings.equals(personalityType, 'AMIABLE')}">
+      You are warm, empathetic, and driven by helping
+      others feel supported and understood.
+    </p>
+    <p class="personality-desc"
+       th:if="${#strings.equals(personalityType, 'AMBIVERT')}">
+      You balance both introvert and extrovert traits,
+      adaptable and comfortable in most situations.
+    </p>
+  </div>
+
+  <!-- ── History result card — shown when visiting /results directly ── -->
+  <div th:if="${personalityType == null and !allResults.empty}" class="result-card">
+    <i class="fa-solid fa-brain" style="font-size:50px;"></i>
+    <p style="font-size:18px; margin:12px 0 4px;">Your Personality Type is</p>
+    <div class="personality-label"
+         th:text="${allResults[0].personalityType.name()}"></div>
+
+    <p class="personality-desc"
+       th:if="${#strings.equals(allResults[0].personalityType.name(), 'EXTROVERT')}">
+      You are energized by social interaction, thrive in groups,
+      and love sharing your thoughts with others.
+    </p>
+    <p class="personality-desc"
+       th:if="${#strings.equals(allResults[0].personalityType.name(), 'INTROVERT')}">
+      You recharge through alone time, think deeply,
+      and prefer meaningful one-on-one connections.
+    </p>
+    <p class="personality-desc"
+       th:if="${#strings.equals(allResults[0].personalityType.name(), 'ANALYTICAL')}">
+      You are logical, detail-oriented, and love solving
+      complex problems with data and research.
+    </p>
+    <p class="personality-desc"
+       th:if="${#strings.equals(allResults[0].personalityType.name(), 'AMIABLE')}">
+      You are warm, empathetic, and driven by helping
+      others feel supported and understood.
+    </p>
+    <p class="personality-desc"
+       th:if="${#strings.equals(allResults[0].personalityType.name(), 'AMBIVERT')}">
+      You balance both introvert and extrovert traits,
+      adaptable and comfortable in most situations.
+    </p>
+  </div>
+
+  <!-- ── All past results history ── -->
+  <div style="text-align:left;">
+    <h3 style="margin-bottom:14px;">
+      <i class="fa-solid fa-clock-rotate-left"></i> All Results History
+    </h3>
+
+    <div th:if="${allResults.empty}"
+         style="color:#888; text-align:center; padding:20px;">
+      No results yet. Attempt a test to see your personality type!
+    </div>
+
+    <div th:each="r : ${allResults}" class="history-card">
+      <div>
+        <strong th:text="${r.test.testName}"></strong>
+      </div>
+      <span class="type-badge"
+            th:classappend="${r.personalityType.name()}"
+            th:text="${r.personalityType.name()}">
+      </span>
+    </div>
+  </div>
+
+  <!-- ── Bottom buttons ── -->
+  <div style="margin-top:30px;">
+    <a href="/tests" class="card-btn" style="margin-right:10px;">
+      <i class="fa-solid fa-file-lines"></i> View More Tests
+    </a>
+    <a th:href="@{/student_dashboard}" class="card-btn" style="background:#8b5cf6;">
+      <i class="fa-solid fa-house"></i> Dashboard
+    </a>
+  </div>
+
+</main>
+
+</body>
+</html>

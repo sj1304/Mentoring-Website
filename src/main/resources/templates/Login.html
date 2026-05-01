@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        
+        <title>Wellness | Login</title>
+        
+        <!-- Font Awesome for icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+        <link rel="stylesheet" href="/css/Login.css">
+        <link rel="stylesheet" href="/css/HeaderFooter.css">
+    </head>
+
+    <body>
+
+    <header>
+        <nav>
+            <div class="nav_left">
+                <img src="/images/logoImg.png" alt="elevateU logo">
+                <strong class="brand-name">elevateU</strong>
+            </div>
+
+            <div class="nav_center">
+                <a href="/">Home</a>
+                <a href="/about">About Us</a>
+                <a href="#footer">Contact Us</a>
+                <a href="/login">Login</a>
+                <a href="/registration">Register</a>
+            </div>
+
+            <div class="nav_right">
+
+            </div>
+        </nav>
+    </header>
+
+
+        <main>
+            <!--container to divide into 2 parts-->
+            <div class="container">
+                <!--left side for image-->
+                <div class="left">
+                    <!-- image path -->
+                    <img src="/images/login_img.png" alt="Login illustration">
+                </div>
+
+                <!--right side for login form-->
+                <div class="right">
+                    <h1>Login</h1>
+
+                    <form method="post" action="/login" class="login_form">
+
+                        <!--Select role-->
+                        <select name="role" required>
+                            <option value="" disabled selected>Select Role</option>
+                            <option value="MENTOR">Mentor</option>
+                            <option value="MENTEE">Mentee</option>
+                        </select>
+
+                        <!--Username-->
+                        <input type="text" name="username" placeholder="Username" required>
+
+                        <!--Password-->
+                        <input type="password" name="password" placeholder="Password" required>
+
+                        <!--Forgot password-->
+                        <a href="/forgot-password" class="forgot">Forgot Password?</a>
+
+                        <!--Submit button-->
+                        <button type="submit">Login</button>
+
+                        <!--Register link-->
+                        <div class="register_link">
+                            Don’t have an account?
+                            <a href="/registration">Register</a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </main>
+
+    <footer id="footer">
+        <div class="footer_brand">
+            <strong class="brand-name">elevateU</strong>
+            <p class="tagline">Test, Talk, Transform.</p>
+        </div>
+
+        <div class="footer_links">
+            <strong>Quick Links</strong>
+            <ul>
+                <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/registration">Register</a></li>
+                <li><a href="/iqac">IQAC</a></li>
+            </ul>
+        </div>
+
+        <div class="footer_contact">
+            <strong>Contact Us</strong>
+            <p> elevateU Support Team</p>
+
+            <p><i class="fa-solid fa-location-dot"></i> Fergusson College
+                F.C. Road, Pune 411004.</p>
+
+            <p><i class="fa-solid fa-phone"></i> 020-67656000 </p>
+
+            <p><i class="fa-solid fa-envelope"></i> <a href="mailto:wellness@gmail.com">elevateU@gmail.com</a></p>
+        </div>
+
+        <div class="rights_reserve">
+            © 2026 elevateU. All rights reserved.
+        </div>
+    </footer>
+
+    </body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Tests</title>
+    <link rel="stylesheet" href="/css/HeaderFooter.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" href="/css/Student_Db.css">
+    <style>
+        .tests-wrapper { max-width: 800px; margin: 50px auto; padding: 20px; }
+        .test-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .test-card h3 { margin: 0 0 4px; }
+        .badge-pending {
+            background: #fef3c7; color: #92400e;
+            padding: 4px 10px; border-radius: 20px; font-size: 13px;
+        }
+        .badge-done {
+            background: #d1fae5; color: #065f46;
+            padding: 4px 10px; border-radius: 20px; font-size: 13px;
+        }
+
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+        /* Custom overrides to match reports.html exactly */
+        .back-btn-container {
+          padding: 20px 5% 0 5%;
+        }
+
+        .back-dashboard-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 20px;
+          background-color: #ffffff;
+          color: #2e7d32;
+          text-decoration: none;
+          font-weight: 600;
+          border-radius: 8px;
+          border: 1.5px solid #2e7d32;
+          transition: all 0.3s ease;
+        }
+
+        .back-dashboard-btn:hover {
+          background-color: #2e7d32;
+          color: #ffffff;
+          transform: translateX(-5px);
+        }
+
+        .table-card {
+          background: white;
+          padding: 30px;
+          border-radius: 15px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+          margin: 20px 5% 50px 5%;
+        }
+
+        .section-title {
+          border-left: 5px solid #2e7d32;
+          padding-left: 15px;
+          font-weight: 700;
+          color: #333;
+          margin-bottom: 25px;
+        }
+
+        .progress { height: 12px; border-radius: 6px; background-color: #e9ecef; }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="nav_left">
+            <img src="/images/logoImg.png" alt="elevateU logo">
+            <strong class="brand-name">elevateU</strong>
+        </div>
+
+        <div class="nav_center">
+            <!-- ✅ routes fixed -->
+            <a href="/">Home</a>
+            <a href="/about">About Us</a>
+            <a href="#footer">Contact Us</a>
+        </div>
+
+        <div class="nav_right">
+            <a href="/notifications" class="icon bell">
+                <i class="fa-solid fa-bell"></i>
+            </a>
+
+            <a href="/profile" class="icon">
+                <i class="fa-solid fa-user"></i>
+            </a>
+
+            <a href="/logout" class="logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </nav>
+</header>
+
+<div class="back-btn-container">
+    <a th:href="@{/student_dashboard}" class="back-dashboard-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+<main class="tests-wrapper">
+
+    <h2><i class="fa-solid fa-file-lines"></i> My Assigned Tests</h2>
+
+    <div th:if="${assignedTests.empty}"
+         style="color:#888; margin-top:24px; text-align:center;">
+        <i class="fa-solid fa-inbox" style="font-size:40px;"></i>
+        <p>No tests assigned yet. Check back later!</p>
+    </div>
+
+    <div th:each="test : ${assignedTests}" class="test-card">
+        <div>
+            <h3 th:text="${test.testName}"></h3>
+            <small th:text="'Questions: ' + ${test.questions.size()}"
+                   style="color:#666;"></small>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:12px;">
+
+            <!-- Show badge if already attempted -->
+            <span th:if="${testService.hasAttempted(student, test.testId)}"
+                  class="badge-done">
+                ✅ Completed
+            </span>
+
+            <!-- Attempt button if not yet done -->
+            <a th:unless="${testService.hasAttempted(student, test.testId)}"
+               th:href="@{/attempt-test/{id}(id=${test.testId})}"
+               class="card-btn">
+                Attempt →
+            </a>
+
+            <!-- View result if done -->
+            <a th:if="${testService.hasAttempted(student, test.testId)}"
+               href="/results"
+               class="card-btn" style="background:#8b5cf6;">
+                View Result
+            </a>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

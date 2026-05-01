@@ -1,0 +1,138 @@
+html, body 
+{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+
+
+/*HEADER 2 - Student details header*/
+.student-header 
+{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    gap: 14px;
+    padding: 5px 30px;   
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.student-icon 
+{
+    font-size: 34px;
+    color: #2b908f;
+}
+
+.student-inline-info 
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    color: #333;
+}
+
+.student-name 
+{
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.divider 
+{
+    color: #aaa;
+}
+
+
+/*MAIN*/
+/*main container*/
+.dashboard-container 
+{
+    padding: 30px 40px;
+}
+
+/*cards parent container*/
+.card-container 
+{
+    display: grid;
+    grid-template-columns: repeat(3, 220px); 
+    gap: 45px;
+    max-width: 800px;        
+    margin: 0;          
+    padding: 70px 40px 220px;
+}
+
+.dashboard-card 
+{
+    background: white;
+    height: 260px;          
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover 
+{
+    transform: translateY(-6px);
+    background-color: #e8f3f4;
+    box-shadow: 0 10px 22px rgba(150, 134, 134, 0.12);
+}
+
+.card-icon 
+{
+    font-size: 36px;
+    color: #3b8c6c;
+    margin-bottom: 12px;
+}
+
+.dashboard-card h3 
+{
+    margin: 8px 0;
+    font-size: 18px;
+    color: #172518;
+}
+
+.dashboard-card p 
+{
+    font-size: 14px;
+    color: #555;
+}
+
+.card-count 
+{
+    display: inline-block;
+    margin: 10px 0;
+    padding: 6px 16px;
+    background: #e6f2ec;
+    color: #2f7a5f;
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+.card-btn 
+{
+    display: inline-block;
+    margin-top: 12px;
+    padding: 8px 18px;
+    background: #3b8c6c;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.card-btn:hover 
+{
+    background-color: #2f7a5f;
+}
+
+
+

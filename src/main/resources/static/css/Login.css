@@ -1,0 +1,170 @@
+html, body 
+{
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+*, *::before, *::after 
+{
+    box-sizing: inherit;
+}
+
+
+/* main styling */
+
+/* parent container*/
+.container 
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 80px); 
+    align-items: center;
+    background-color: white;
+}
+
+/* left container - img part */
+.left img 
+{
+    width: 85%;
+    max-height: 500px;
+    height: auto;
+    margin-left: 65px;
+}
+
+/* right container */
+.right 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+    font-size: 18px;
+}
+
+/* right container h1 */
+.right h1 
+{
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* right container LOGIN FORM */
+.login_form 
+{
+    width: 100%;
+    max-width: 400px;
+}
+
+/* right container login form for input select fields */
+.login_form input,
+.login_form select 
+{
+    display: block;
+    width: 100%;
+    margin-bottom: 25px;
+    padding: 14px 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+/* login form field on focus */
+.login_form input:focus,
+.login_form select:focus 
+{
+    outline: none;
+    border-color: #4a90e2;
+}
+
+/* login form select role arrow */
+.login_form select 
+{
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23999' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+}
+
+/* for no underline */
+.login_form div a 
+{
+    text-decoration: none;
+}
+
+/* select placeholder text color similar to that of input placeholder */
+.login_form select 
+{
+    color: #999; 
+}
+
+/* after role selection - font darker */
+.login_form select:valid 
+{
+    color: #000; 
+}
+
+/* placeholder disabled option light grey */
+.login_form select option:disabled 
+{
+    color: #999;
+}
+
+/* Login button hover effect */
+.login_form button:hover 
+{
+    background-color: #416a67; 
+    transform: scale(0.98);    
+}
+
+/* login form forgot password */
+.login_form a.forgot 
+{
+    display: block;
+    text-align: right;
+    margin-bottom: 20px;
+    color: #4a90e2;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* Forgot Password hover */
+.login_form a.forgot:hover 
+{
+    color: navy;
+    text-decoration: none; 
+}
+
+/* Register link hover */
+.login_form .register_link a:hover 
+{
+    color: navy;
+    text-decoration: none; 
+}
+
+/* login button */
+.login_form button 
+{
+    width: 100%;
+    padding: 14px;
+    background-color: #6fa8a1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.login_form div 
+{
+    text-align: center;
+    font-size: 14px;
+}
+
+
+}

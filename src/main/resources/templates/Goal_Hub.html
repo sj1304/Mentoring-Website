@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-Day Goal Setting </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/HeaderFooter.css">
+
+    <style>
+        :root { --primary-teal: #2d5a4c; }
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+        .hub-header { background: #2e7d32; color: white; padding: 25px 0; border-bottom: 4px solid #1b5e20; }
+        .student-strip { background: white; padding: 10px 0; border-bottom: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .student-info-box { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 0.85rem; color: #555; }
+        .pillar-row { background: white; border-radius: 12px; margin-bottom: 25px; border-left: 8px solid #ccc; transition: transform 0.2s; }
+        .border-physical { border-left-color: #2e7d32; }
+        .border-mental { border-left-color: #0d6efd; }
+        .border-academic { border-left-color: #ffc107; }
+        .border-social { border-left-color: #d63384; }
+        .input-group { max-width: 100%; margin: 10px 0; border-radius: 8px; overflow: hidden; }
+        .btn-add { font-weight: 600; letter-spacing: 0.5px; }
+
+        /* Updated Saved State Style */
+        .saved-goal-item {
+            background: #f8fff9;
+            border: 1px solid #d1e7dd;
+            border-radius: 8px;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="nav_left">
+            <img src="/images/logoImg.png" alt="elevateU logo">
+            <strong class="brand-name">elevateU</strong>
+        </div>
+
+        <div class="nav_center">
+            <a href="/">Home</a>
+            <a href="/about">About Us</a>
+            <a href="#footer">Contact Us</a>
+        </div>
+
+        <div class="nav_right">
+            <a href="/notifications" aria-label="Notifications">
+                <i class="fa-solid fa-bell icon bell"></i>
+            </a>
+
+            <a href="/profile" aria-label="Profile">
+                <i class="fa-solid fa-user icon"></i>
+            </a>
+
+            <a href="/logout" class="logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </nav>
+</header>
+
+
+<div class="hub-header text-center">
+    <div class="container position-relative">
+        <a href="/student_dashboard" class="btn btn-outline-light btn-sm position-absolute start-0 top-50 translate-middle-y">
+            <i class="fa-solid fa-arrow-left me-1"></i> Dashboard
+        </a>
+        <h2 class="mb-0"><i class="fa-solid fa-bullseye me-2"></i> 30-Day Goal Setting</h2>
+    </div>
+</div>
+
+<div class="student-strip">
+    <div class="container">
+        <div class="student-info-box">
+            <i class="fa-solid fa-user-graduate cap-icon" style="color: var(--primary-teal); font-size: 1.3rem;"></i>
+            <span><strong th:text="${session.studentName}">Student Name</strong></span>
+            <span class="divider" style="color:#ccc;">|</span>
+            <span>Roll No: <strong th:text="${session.studentRoll}">--</strong></span>
+            <span class="divider" style="color:#ccc;">|</span>
+            <span>Class: <strong th:text="${session.studentProgramme}">Programme</strong></span>
+        </div>
+    </div>
+</div>
+
+<main class="container py-5">
+    <div class="pillar-row border-physical p-4 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="text-success mb-0"><i class="fa-solid fa-dumbbell me-2"></i> Physical Well-being</h4>
+            <button class="btn btn-success btn-sm btn-add" onclick="addGoalRow('Physical')">+ Add Goal</button>
+        </div>
+        <div id="container-Physical" class="px-1"></div>
+    </div>
+
+    <div class="pillar-row border-mental p-4 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="text-primary mb-0"><i class="fa-solid fa-brain me-2"></i> Mental Well-being</h4>
+            <button class="btn btn-primary btn-sm btn-add" onclick="addGoalRow('Mental')">+ Add Goal</button>
+        </div>
+        <div id="container-Mental" class="px-1"></div>
+    </div>
+
+    <div class="pillar-row border-academic p-4 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="text-warning mb-0"><i class="fa-solid fa-book me-2"></i> Academic Excellence</h4>
+            <button class="btn btn-warning btn-sm text-white btn-add" onclick="addGoalRow('Academics')">+ Add Goal</button>
+        </div>
+        <div id="container-Academics" class="px-1"></div>
+    </div>
+
+    <div class="pillar-row border-social p-4 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="text-danger mb-0"><i class="fa-solid fa-users me-2"></i> Social Connection</h4>
+            <button class="btn btn-danger btn-sm btn-add" onclick="addGoalRow('Social')">+ Add Goal</button>
+        </div>
+        <div id="container-Social" class="px-1"></div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/my-goals" class="btn btn-primary btn-lg shadow">
+            <i class="fa-solid fa-chart-line me-2"></i> Finished Planning? Track Progress
+        </a>
+    </div>
+</main>
+
+<input type="hidden" id="currentSid" th:value="${session.studentId}">
+
+<script th:inline="javascript">
+    let categoryConfig = {};
+    let currentCycleId = null;
+
+    async function loadTemplates() {
+        const categories = [
+            { name: "Physical", id: 1 }, { name: "Mental", id: 2 },
+            { name: "Academics", id: 3 }, { name: "Social", id: 4 }
+        ];
+        for (const cat of categories) {
+            try {
+                const res = await fetch(`/api/goals/templates/${cat.id}`);
+                categoryConfig[cat.name] = { templates: await res.json() };
+            } catch (e) { console.error("Error loading templates for " + cat.name, e); }
+        }
+    }
+
+    async function initCycle() {
+        const studentId = document.getElementById('currentSid').value;
+        const today = new Date().toISOString().split('T')[0];
+        const endDate = new Date(Date.now() + 30*24*60*60*1000).toISOString().split('T')[0];
+
+        try {
+            const res = await fetch('/api/goals/cycle', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    student: { sid: parseInt(studentId) },
+                    durationDays: 30, startDate: today, endDate: endDate
+                })
+            });
+            const cycle = await res.json();
+            currentCycleId = cycle.cycleId;
+        } catch (e) { console.error("Error initializing cycle", e); }
+    }
+
+    window.onload = async () => {
+        await loadTemplates();
+        await initCycle();
+    };
+
+    function addGoalRow(category) {
+        const container = document.getElementById(`container-${category}`);
+        if (container.querySelectorAll('.input-group').length >= 3) return alert("Limit: 3 goals per category!");
+
+        const div = document.createElement('div');
+        div.className = "input-group shadow-sm mb-3";
+
+        let options = categoryConfig[category].templates.map(t =>
+            `<option value="${t.templateId}">${t.templateText}</option>`
+        ).join('');
+
+        div.innerHTML = `
+            <select class="form-select border-0 bg-light" style="max-width: 35%">${options}</select>
+            <input type="text" class="form-control border-0" placeholder="e.g. 20 mins daily, 3 times a week...">
+            <button class="btn btn-success px-4" onclick="saveGoal(this)">Save</button>
+        `;
+        container.appendChild(div);
+    }
+
+    async function saveGoal(btn) {
+        const parent = btn.parentElement;
+        const selectEl = parent.querySelector('select');
+        const inputEl = parent.querySelector('input');
+
+        const templateId = selectEl.value;
+        const templateText = selectEl.options[selectEl.selectedIndex].text;
+        const filledText = inputEl.value;
+        const studentId = document.getElementById('currentSid').value;
+
+        if (!filledText.trim()) return alert("Please enter specific details for your goal!");
+
+        const payload = {
+            student: { sid: parseInt(studentId) },
+            cycle: { cycleId: currentCycleId },
+            template: { templateId: parseInt(templateId) },
+            filledText: filledText,
+            status: "pending"
+        };
+
+        try {
+            const res = await fetch('/api/goals', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (res.ok) {
+                // Replace input group with a clean "Saved" display
+                const container = parent.parentElement;
+                const savedDiv = document.createElement('div');
+                savedDiv.className = "saved-goal-item shadow-sm";
+                savedDiv.innerHTML = `
+                    <div>
+                        <span class="badge bg-success me-2">Saved</span>
+                        <strong>${templateText}</strong>: <span class="text-muted">${filledText}</span>
+                    </div>
+                    <i class="fa-solid fa-circle-check text-success fs-5"></i>
+                `;
+                parent.remove();
+                container.appendChild(savedDiv);
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Error saving goal. Please try again.");
+        }
+    }
+</script>
+
+<footer id="footer">
+    <div class="footer_brand">
+        <strong class="brand-name">elevateU</strong>
+        <p class="tagline">Test, Talk, Transform.</p>
+    </div>
+
+    <div class="footer_links">
+        <strong>Quick Links</strong>
+        <ul>
+            <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/iqac">IQAC</a></li>
+        </ul>
+    </div>
+
+    <div class="footer_contact">
+        <strong>Contact Us</strong>
+        <p> elevateU Support Team</p>
+
+        <p><i class="fa-solid fa-location-dot"></i> Fergusson College
+            F.C. Road, Pune 411004.</p>
+
+        <p><i class="fa-solid fa-phone"></i> 020-67656000 </p>
+
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:wellness@gmail.com">elevateU@gmail.com</a></p>
+    </div>
+
+    <div class="rights_reserve">
+        © 2026 elevateU. All rights reserved.
+    </div>
+</footer>
+</body>
+</html>

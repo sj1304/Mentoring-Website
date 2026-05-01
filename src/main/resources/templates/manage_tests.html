@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/HeaderFooter.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/mentor-dashboard.css">
+
+    <style>
+        .page-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px 60px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #3b8c6c;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .back-link:hover { color: #2f7a5f; }
+
+        /* ── Page header row ── */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .page-header h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            color: #172518;
+        }
+
+        .page-header h2 i { color: #2f7a5f; }
+
+        .new-test-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #3b8c6c;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .new-test-btn:hover { background: #2f7a5f; }
+
+        /* ── Stats bar ── */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 18px 22px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+
+        .stat-card .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2f7a5f;
+        }
+
+        .stat-card .stat-label {
+            font-size: 13px;
+            color: #777;
+            margin-top: 4px;
+        }
+
+        /* ── Test row card ── */
+        .test-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 20px 26px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            transition: transform 0.15s;
+        }
+
+        .test-card:hover {
+            transform: translateY(-2px);
+            background: #fafffe;
+        }
+
+        .test-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .test-icon-wrap {
+            width: 48px;
+            height: 48px;
+            background: #eef6f4;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .test-icon-wrap i {
+            font-size: 22px;
+            color: #3b8c6c;
+        }
+
+        .test-info h3 {
+            font-size: 16px;
+            color: #172518;
+            margin-bottom: 6px;
+        }
+
+        .test-meta {
+            display: flex;
+            gap: 14px;
+        }
+
+        .meta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #f4f8f7;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .meta-pill i { color: #3b8c6c; font-size: 11px; }
+
+        /* ── Action buttons ── */
+        .test-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+        }
+
+        .btn-questions {
+            background: #dbeafe;
+            color: #1e3a8a;
+        }
+        .btn-questions:hover { background: #bfdbfe; }
+
+        .btn-assign {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+        .btn-assign:hover { background: #ddd6fe; }
+
+        .btn-delete {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .btn-delete:hover { background: #fecaca; }
+
+        /* ── Empty state ── */
+        .empty-state {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+        }
+
+        .empty-state i {
+            font-size: 52px;
+            color: #d1d5db;
+            margin-bottom: 16px;
+        }
+
+        .empty-state p {
+            color: #888;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="nav_left">
+            <img src="/images/logoImg.png" alt="elevateU logo">
+            <strong class="brand-name">elevateU</strong>
+        </div>
+
+        <div class="nav_center">
+            <a href="/">Home</a>
+            <a href="/about">About Us</a>
+            <a href="#footer">Contact Us</a>
+        </div>
+
+        <div class="nav_right">
+            <a href="/notifications" aria-label="Notifications">
+                <i class="fa-solid fa-bell icon bell"></i>
+            </a>
+
+            <a href="/profile" aria-label="Profile">
+                <i class="fa-solid fa-user icon"></i>
+            </a>
+
+            <a href="/logout" class="logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </nav>
+</header>
+
+<!--  MENTOR INFO -->
+<section class="mentor-header">
+    <i class="fa-solid fa-user-tie mentor-icon"></i>
+    <div class="mentor-info">
+        <span class="mentor-name" th:text="${mentor.firstName + ' ' + mentor.lastName}">Mentor Name</span>
+        <span class="divider">|</span>
+        <span>Psychology Department</span>
+        <span class="divider">|</span>
+        <span>UG &amp; PG</span>
+    </div>
+</section>
+
+<!-- MAIN CONTENT  -->
+<main>
+    <div class="page-wrapper">
+
+        <a href="/mentor_dashboard" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+
+        <!-- Header row -->
+        <div class="page-header">
+            <h2>
+                <i class="fa-solid fa-pen-to-square"></i>
+                Manage Tests
+            </h2>
+            <a href="/create-test" class="new-test-btn">
+                <i class="fa-solid fa-plus"></i> New Test
+            </a>
+        </div>
+
+        <!-- Stats bar -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-number" th:text="${tests.size()}">0</div>
+                <div class="stat-label">Total Tests</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">—</div>
+                <div class="stat-label">Total Questions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">—</div>
+                <div class="stat-label">Total Assignments</div>
+            </div>
+        </div>
+
+        <!-- Empty state -->
+        <div th:if="${tests.empty}" class="empty-state">
+            <i class="fa-solid fa-folder-open"></i>
+            <p>No tests created yet.</p>
+            <a href="/create-test" class="new-test-btn">
+                <i class="fa-solid fa-plus"></i> Create Your First Test
+            </a>
+        </div>
+
+        <!-- Tests list -->
+        <div th:each="test : ${tests}" class="test-card">
+
+            <div class="test-left">
+                <div class="test-icon-wrap">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <div class="test-info">
+                    <h3 th:text="${test.testName}">Test Name</h3>
+                    <div class="test-meta">
+                        <span class="meta-pill">
+                            <i class="fa-solid fa-list-check"></i>
+                            <span th:text="${test.questions.size()}">0</span> Questions
+                        </span>
+                        <span class="meta-pill">
+                            <i class="fa-solid fa-users"></i>
+                            <span th:text="${test.assignedStudents.size()}">0</span> Students
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-actions">
+                <!-- Add / Edit Questions -->
+                <a th:href="@{/add-questions/{id}(id=${test.testId})}"
+                   class="action-btn btn-questions">
+                    <i class="fa-solid fa-plus"></i> Questions
+                </a>
+
+                <!-- Assign -->
+                <a th:href="@{/assign-test/{id}(id=${test.testId})}"
+                   class="action-btn btn-assign">
+                    <i class="fa-solid fa-user-plus"></i> Assign
+                </a>
+
+                <!-- Delete -->
+                <form th:action="@{/delete-test/{id}(id=${test.testId})}" method="post"
+                      onsubmit="return confirm('Are you sure you want to delete this test? This cannot be undone.')">
+                    <button type="submit" class="action-btn btn-delete">
+                        <i class="fa-solid fa-trash"></i> Delete
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</main>
+
+<!--  FOOTER  -->
+<footer id="footer">
+    <div class="footer_brand">
+        <strong class="brand-name">elevateU</strong>
+        <p class="tagline">Test, Talk, Transform.</p>
+    </div>
+
+    <div class="footer_links">
+        <strong>Quick Links</strong>
+        <ul>
+            <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/iqac">IQAC</a></li>
+        </ul>
+    </div>
+
+    <div class="footer_contact">
+        <strong>Contact Us</strong>
+        <p> elevateU Support Team</p>
+
+        <p><i class="fa-solid fa-location-dot"></i> Fergusson College
+            F.C. Road, Pune 411004.</p>
+
+        <p><i class="fa-solid fa-phone"></i> 020-67656000 </p>
+
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:wellness@gmail.com">elevateU@gmail.com</a></p>
+    </div>
+
+    <div class="rights_reserve">
+        © 2026 elevateU. All rights reserved.
+    </div>
+</footer>
+
+</body>
+</html>

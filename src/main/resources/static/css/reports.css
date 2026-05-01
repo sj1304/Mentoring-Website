@@ -1,0 +1,431 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #f4f8f7;
+    color: #333;
+}
+
+/*  NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f7f7f5;
+    padding: 15px 20px;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #172518;
+}
+
+.nav-left img {
+    height: 32px;
+}
+
+.nav-center a {
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #172518;
+}
+
+.nav-center a:hover {
+    color: #3b8c6c;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+    background: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bell {
+    color: #f4c430;
+}
+
+.logout {
+    background: #dbd1d1;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #111;
+    font-weight: 600;
+}
+
+
+/* MENTOR HEADER */
+
+.mentor-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    background: #ffffff;
+    padding: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+
+.mentor-icon {
+    font-size: 32px;
+    color: #3b8c6c;
+}
+
+.mentor-info {
+    display: flex;
+    gap: 10px;
+    font-size: 15px;
+}
+
+.mentor-name {
+    font-weight: 700;
+}
+
+.divider {
+    color: #aaa;
+}
+
+
+/* ANALYTICS NAVIGATION  */
+
+.analytics-nav{
+
+position:sticky;   /* makes it stick while scrolling */
+top:0;
+
+width:100%;
+background:#81c19f;
+
+display:flex;
+justify-content:center;
+gap:40px;
+
+padding:14px;
+
+z-index:900;
+
+}
+
+.analytics-nav a {
+ color: #0d0e0d;
+
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+
+}
+
+.analytics-nav a:hover {
+
+   color: white;
+
+}
+
+/* Navbar color change based on section */
+
+.analytics-nav.performance{
+    background:#e6e68c;
+}
+
+.analytics-nav.goal{
+    background:#d9b8f0;
+}
+
+.analytics-nav.mentor{
+    background:#9fd2ea;
+}
+
+
+/* ================= PAGE SECTIONS ================= */
+
+.page-section {
+
+    min-height: 100vh;
+
+    padding: 60px 20px 60px 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.page-section h2 {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 40px;
+    color: #233424;
+}
+
+/* ================= STUDENT GRID ================= */
+
+.student-grid {
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 30px;
+
+    width: 80%;
+
+    margin: 30px;
+
+}
+
+
+/* ================= STUDENT CARD ================= */
+
+.student-card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+transition:all 0.6s ease;
+}
+
+.student-card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+transition:all 0.6s ease;
+}
+
+.student-card:hover{
+transform:translateY(-5px);
+}
+
+.progress{
+height:10px;
+border-radius:5px;
+background:#27ae60;
+width:0;
+}
+.student-card h3 {
+
+    font-size: 20px;
+    margin-bottom: 6px;
+
+}
+
+.student-card p {
+
+    font-size: 16px;
+    margin-bottom: 12px;
+
+}
+
+
+/* ================= PROGRESS BAR (The Track) ================= */
+.progress-bar {
+    width: 100%;
+    background: #ddd; /* The grey background of the bar */
+    height: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden; /* This ensures the inner bar doesn't 'leak' out */
+}
+
+/* ================= PROGRESS (The Moving Part) ================= */
+.progress {
+    height: 100%; /* Make sure it fills the 15px of the parent */
+    border-radius: 5px;
+    background: #FFD700 !important; /* Force the YELLOW color for your theme */
+    width: 0%; /* Initial width for JS animation */
+    transition: width 1.2s ease; /* Ensure this is here for the smooth slide */
+}
+
+
+/* ================= CHART SECTION ================= */
+
+.chart-container {
+
+    display: flex;
+
+    gap: 250px;
+
+    width: 80%;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+.chart-box{
+background:white;
+
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+width:400px;
+height:480px;
+padding:60px 20px 10px 20px;
+opacity:0;
+transform:translateY(40px);
+transition:all 0.8s ease;
+
+}
+
+.chart-box.show{
+opacity:1;
+transform:translateY(0);
+}
+
+#goalTimeChart{
+    margin-top:50px;
+
+    width: 360px !important;
+    height:300px !important;
+}
+
+#goalCategoryChart{
+    margin-top: 30px;
+}
+
+
+.chart-box.large {
+
+    width: 65%;
+transform:translateX(40px);
+transition:all 1s ease;
+}
+
+.chart-box.large.show{
+opacity:1;
+transform:translateX(0);
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+
+    background: #172518;
+
+    color: white;
+
+    padding: 40px;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 30px;
+
+}
+
+footer a {
+
+    color: white;
+    text-decoration: none;
+
+}
+
+footer a:hover {
+
+    color: #3b8c6c;
+
+}
+
+.rights {
+
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    margin-top: 20px;
+
+}
+
+#student_performance{
+    background: linear-gradient(180deg, #ffffff, #fff8e8);
+}
+
+#goal_analytics{
+    background: linear-gradient(180deg, #ffffff, #efe2f8);
+}
+
+#mentor_comparison{
+    background: linear-gradient(180deg, #ffffff, #dbf0fa);
+}
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+
+    .student-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+}
+
+
+/* Color updates for navigation icons */
+.bell { color: #f1c40f; } /* Yellow bell */
+.user-blue { color: #0000ff; } /* Blue user icon */
+
+/* Logout button refinement */
+.logout {
+    background: #f1948a !important; /* Soft red/pink */
+    color: #000 !important;
+    border: 1px solid rgba(0,0,0,0.1);
+    transition: background 0.3s ease;
+}
+
+.logout:hover {
+    background: #e67c73 !important;
+}
+
+/* Mentor header refinement */
+.mentor-header {
+    background: #fff;
+    padding: 10px 5%;
+    border-bottom: 1px solid #eee;
+    justify-content: flex-start; /* Align left as per image_535dfc.png */
+    gap: 20px;
+}
+
+.mentor-icon {
+    font-size: 2.2rem;
+    color: #2e7d32;
+}
+
+.mentor-info {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.mentor-name {
+    font-size: 1.1rem;
+    color: #172518;
+}
+
+/* Section Headings Styling */
+.section-heading {
+    border-left: 5px solid #2e7d32;
+    padding-left: 15px;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+

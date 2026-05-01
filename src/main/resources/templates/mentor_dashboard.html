@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Mentor Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/mentor-dashboard.css">
+    <link rel="stylesheet" href="/css/HeaderFooter.css">
+
+    <style>
+        .mentor-header {
+            background: #fff;
+            padding: 16px 5%;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            gap: 16px;
+        }
+        .mentor-icon { font-size: 2.2rem; color: #2e7d32; }
+        .mentor-info {
+            font-size: 0.95rem;
+            color: #555;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        .mentor-name { font-weight: bold; font-size: 1.1rem; color: #333; }
+        .divider { margin: 0 6px; color: #ccc; }
+
+        .section-heading {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #888;
+            margin-bottom: 20px;
+            border-left: 4px solid #2e7d32;
+            padding-left: 10px;
+        }
+        .section-heading.purple-border { border-left-color: #8b5cf6; }
+
+        .section-divider {
+            border: none;
+            border-top: 2px dashed #e0e0e0;
+            margin: 36px 0 28px;
+        }
+
+        /* Goal cards — green */
+        .goal-card { border-top: 4px solid #2e7d32 !important; }
+        .goal-card .card-icon { color: #2e7d32 !important; }
+        .goal-card .card-btn { background: #2e7d32 !important; }
+        .goal-card .card-btn:hover { background: #1b5e20 !important; }
+        .goal-card:hover { background: #f1f8f2 !important; }
+
+        /* Personality cards — purple */
+        .personality-card { border-top: 4px solid #8b5cf6 !important; }
+        .personality-card .card-icon { color: #8b5cf6 !important; }
+        .personality-card .card-btn { background: #8b5cf6 !important; }
+        .personality-card .card-btn:hover { background: #7c3aed !important; }
+        .personality-card:hover { background: #f5f3ff !important; }
+
+        .count-green {
+            background: #e8f5e9;
+            color: #2e7d32;
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="nav_left">
+            <img src="/images/logoImg.png" alt="elevateU logo">
+            <strong class="brand-name">elevateU</strong>
+        </div>
+
+        <div class="nav_center">
+            <!-- ✅ routes fixed -->
+            <a href="/">Home</a>
+            <a href="/about">About Us</a>
+            <a href="#footer">Contact Us</a>
+
+        </div>
+
+        <div class="nav_right">
+            <a href="/notifications" aria-label="Notifications">
+                <i class="fa-solid fa-bell icon bell"></i>
+            </a>
+
+            <a href="/profile" aria-label="Profile">
+                <i class="fa-solid fa-user icon"></i>
+            </a>
+
+            <a href="/logout" class="logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </nav>
+</header>
+
+<!-- ================= MENTOR INFO ================= -->
+<section class="mentor-header">
+    <i class="fa-solid fa-user-tie mentor-icon"></i>
+    <div class="mentor-info">
+        <span class="mentor-name" th:text="${mentorName}">Mentor Name</span>
+        <span class="divider">|</span>
+        <span th:text="${mentorDept}">Psychology Department</span>
+        <span class="divider">|</span>
+        <span th:text="${mentorLevel}">UG &amp; PG</span>
+        <span class="divider">|</span>
+        <span th:text="${mentorDesignation}">Senior Professor</span>
+    </div>
+</section>
+
+<!-- ================= DASHBOARD ================= -->
+<main class="dashboard">
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- SECTION 1 — GOAL MODULE            -->
+    <!-- ═══════════════════════════════════ -->
+    <p class="section-heading">
+        <i class="fa-solid fa-bullseye"></i> &nbsp; Goal Tracking &amp; Analytics
+    </p>
+
+    <div class="dashboard-cards">
+
+        <div class="dashboard-card goal-card">
+            <i class="fa-solid fa-users card-icon"></i>
+            <h3>My Students</h3>
+            <p>Monitor your assigned mentees and their progress.</p>
+            <span class="count-green"
+                  th:text="${stats != null ? stats.students.size() : 0}">0</span>
+            <a href="/students" class="card-btn">View Students</a>
+        </div>
+
+        <div class="dashboard-card goal-card">
+            <i class="fa-solid fa-chart-pie card-icon"></i>
+            <h3>Analytics</h3>
+            <p>Visualize goal performance trends across your students.</p>
+            <a href="/reports" class="card-btn">View Reports</a>
+        </div>
+
+        <div class="dashboard-card goal-card">
+            <i class="fa-solid fa-bullseye card-icon"></i>
+            <h3>Goal Progress</h3>
+            <p>Average goal completion across your mentees.</p>
+            <span class="count-green"
+                  th:text="${stats != null ? stats.completedGoals + '%' : '0%'}">0%</span>
+            <a href="/reports" class="card-btn">View Details</a>
+        </div>
+
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION 2 — PERSONALITY MODULE         -->
+    <!-- ═══════════════════════════════════════ -->
+    <p class="section-heading purple-border">
+        <i class="fa-solid fa-brain"></i> &nbsp; Personality Traits Assessment
+    </p>
+
+    <div class="dashboard-cards">
+
+        <div class="dashboard-card personality-card">
+            <i class="fa-solid fa-plus card-icon"></i>
+            <h3>Create Test</h3>
+            <p>Design new personality assessments for your students.</p>
+            <a href="/create-test" class="card-btn">Create Now</a>
+        </div>
+
+        <div class="dashboard-card personality-card">
+            <i class="fa-solid fa-pen-to-square card-icon"></i>
+            <h3>Manage Tests</h3>
+            <p>Edit, assign or delete existing personality tests.</p>
+            <a href="/manage-tests" class="card-btn">Manage</a>
+        </div>
+
+        <div class="dashboard-card personality-card">
+            <i class="fa-solid fa-check-double card-icon"></i>
+            <h3>Evaluate</h3>
+            <p>View student personality type results and submissions.</p>
+            <a href="/evaluate" class="card-btn">Evaluate</a>
+        </div>
+
+    </div>
+
+    <hr class="section-divider">
+
+
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer id="footer">
+    <div class="footer_brand">
+        <strong class="brand-name">elevateU</strong>
+        <p class="tagline">Test, Talk, Transform.</p>
+    </div>
+
+    <div class="footer_links">
+        <strong>Quick Links</strong>
+        <ul>
+            <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/iqac">IQAC</a></li>
+        </ul>
+    </div>
+
+    <div class="footer_contact">
+        <strong>Contact Us</strong>
+        <p> elevateU Support Team</p>
+
+        <p><i class="fa-solid fa-location-dot"></i> Fergusson College
+            F.C. Road, Pune 411004.</p>
+
+        <p><i class="fa-solid fa-phone"></i> 020-67656000 </p>
+
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:wellness@gmail.com">elevateU@gmail.com</a></p>
+    </div>
+
+    <div class="rights_reserve">
+        © 2026 elevateU. All rights reserved.
+    </div>
+</footer>
+
+</body>
+</html>

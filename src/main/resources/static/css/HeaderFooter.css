@@ -1,0 +1,253 @@
+/*Header styling*/
+header
+{
+    background-color: #f4f7f2;
+    padding: 0;
+}
+
+
+/*nav bar in header*/
+nav
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    background: rgb(247, 247, 245);
+    box-shadow: 0 5px 5px #0000001f;
+    border-radius: 8px;
+    margin:0;
+}
+
+/* 3 sections in header nav - left center right*/
+.nav_left,
+.nav_center,
+.nav_right
+{
+    display: flex;
+    align-items: center;
+}
+
+/* header nav left - logo & text */
+.nav_left
+{
+    gap: 8px;
+    padding: 0 20px;
+    color: #172518;
+}
+
+/* header nav logo*/
+.nav_left img
+{
+    height: 36px;
+    width: auto;
+}
+
+.brand-name {
+    font-family: "Lucida Calligraphy", "Apple Chancery", "URW Chancery L", cursive;
+    font-size: 1.5rem; /* Adjust size as needed */
+    font-weight: bold;
+    color: green;
+}
+
+/*header nav text*/
+.nav_left strong
+{
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* header nav center*/
+.nav_center
+{
+    gap: 35px;
+}
+
+/*header nav center links*/
+.nav_center a
+{
+    text-decoration: none;
+    color: #172518;
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.15s ease-in-out, color 0.15s ease-in-out;
+   margin-right: 20px;
+}
+
+/*header nav center on hov - a jump effect*/
+.nav_center a:hover
+{
+    color: #3b8c6c;
+    transform: translateY(-4px);
+}
+
+
+/* header nav right*/
+.nav_right
+{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 4px 6px;
+    background-color: transparent;
+    border: none;
+}
+
+/* header nav right icons*/
+.icon
+{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e6e6e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: background-color 0.2s ease;
+}
+
+/* header nav right icons on hover */
+.icon:hover
+{
+    background-color: #d0d0d0;
+}
+.icon i {
+    line-height: 1;
+    font-size: 14px; /* adjust if needed */
+}
+
+/* header nav right bell*/
+.nav_right .bell
+{
+    color: #f4c430 !important;
+}
+
+/* header nav right icon - logout*/
+.logout
+{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #f28b82;
+    color: #111;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+/* header nav right icon logout hover*/
+.logout:hover
+{
+    background-color: #e57373;
+}
+
+/* for no underlines*/
+.nav_right a
+{
+    text-decoration: none;
+}
+
+/* FOOTER */
+/* Updated Footer Styling */
+footer {
+    background-color: #2f4f4f;
+    color: white;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.5fr; /* Adjusted column widths */
+    gap: 30px;
+    padding: 40px 10%;
+}
+
+/* Ensure brand name in footer matches header style */
+footer .brand-name {
+    font-family: "Lucida Calligraphy", "Apple Chancery", "URW Chancery L", cursive;
+    font-size: 1.8rem;
+    color: #f4f7f2; /* Lighter color for dark background */
+    display: block;
+    margin-bottom: 5px;
+}
+
+.tagline {
+    font-style: italic;
+    font-size: 1rem;
+    color: #d1d1d1;
+}
+
+footer strong {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+/* Remove bullets from Quick Links */
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 8px;
+}
+
+footer a {
+    text-decoration: none;
+    color: #e0e0e0;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: #3b8c6c;
+}
+
+footer p {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Copyright line */
+.rights_reserve {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 14px;
+}
+
+/* Icons Styling in Footer */
+.footer_contact i,
+.footer_links i {
+    margin-right: 10px;
+    color: #a8d5ba; /* A soft green to match your wellness theme */
+    width: 18px;    /* Fixed width keeps text aligned even if icons vary in width */
+    text-align: center;
+}
+
+.footer_contact p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+/* Ensure links inside the contact section look good */
+.footer_contact a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer_contact a:hover {
+    text-decoration: underline;
+}
+
+/* Optional: Slight spacing for the Quick Links icons */
+.footer_links ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}

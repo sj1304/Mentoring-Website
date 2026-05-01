@@ -1,0 +1,46 @@
+/* Hero Section */
+.about-hero {
+    background: linear-gradient(rgba(47, 79, 79, 0.85), rgba(47, 79, 79, 0.85)),
+                url('/images/slide4.png') center/cover no-repeat;
+    color: white;
+    padding: 100px 0;
+}
+
+.about-hero .brand-name {
+    font-family: "Lucida Calligraphy", cursive;
+    color: #a8d5ba;
+}
+
+/* Content Styles */
+.pillar-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.pillar-list li {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.pillar-list i {
+    color: #3b8c6c;
+    font-size: 1.4rem;
+    margin-right: 15px;
+    width: 25px;
+    text-align: center;
+}
+
+/* Shared Brand Font */
+.brand-name {
+    font-family: "Lucida Calligraphy", cursive;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .about-hero {
+        padding: 60px 0;
+    }
+}

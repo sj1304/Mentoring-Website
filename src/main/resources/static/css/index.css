@@ -1,0 +1,34 @@
+
+    body{
+        background: linear-gradient(135deg, #eef4f2, #dce9e5);
+        margin:0;
+        padding:0;
+    }
+
+    
+    
+#mentorCarousel{
+  background-color: black;
+  margin: 6px 10px;
+  margin-right:8px;
+      box-shadow:0 6px 6px #0000001f;
+}  
+
+.carousel-inner img {
+  height: 670px;
+  width:65%;
+  object-fit: cover; 
+
+
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon,.carousel-indicators {
+  
+  filter: invert(1);
+      
+}
+
+.carousel-control-prev,
+.carousel-control-next
+{top:50px;}

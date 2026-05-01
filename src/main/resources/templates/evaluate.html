@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/mentor-dashboard.css">
+    <link rel="stylesheet" href="/css/HeaderFooter.css">
+
+    <style>
+        .page-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px 60px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #3b8c6c;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .back-link:hover { color: #2f7a5f; }
+
+        /* ── Page header ── */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .page-header h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            color: #172518;
+        }
+
+        .page-header h2 i { color: #2f7a5f; }
+
+        /* ── Summary cards ── */
+        .summary-bar {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .summary-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .summary-card .s-number {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .summary-card .s-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ext-color  { color: #92400e; background: #fef3c7; }
+        .int-color  { color: #1e3a8a; background: #dbeafe; }
+        .ana-color  { color: #065f46; background: #d1fae5; }
+        .ami-color  { color: #9d174d; background: #fce7f3; }
+        .amb-color  { color: #5b21b6; background: #ede9fe; }
+
+        /* ── Test section ── */
+        .test-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+        }
+
+        .test-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .test-section-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 17px;
+            color: #172518;
+        }
+
+        .test-section-header h3 i { color: #3b8c6c; }
+
+        .result-count {
+            background: #eef6f4;
+            color: #2f7a5f;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* ── Student result row ── */
+        .result-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        .result-row:last-child { border-bottom: none; }
+
+        .student-avatar {
+            width: 40px;
+            height: 40px;
+            background: #eef6f4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3b8c6c;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .student-details {
+            flex: 1;
+        }
+
+        .student-details .s-name {
+            font-weight: 600;
+            color: #172518;
+            font-size: 14px;
+        }
+
+        .student-details .s-roll {
+            font-size: 12px;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        .personality-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .EXTROVERT  { background: #fef3c7; color: #92400e; }
+        .INTROVERT  { background: #dbeafe; color: #1e3a8a; }
+        .ANALYTICAL { background: #d1fae5; color: #065f46; }
+        .AMIABLE    { background: #fce7f3; color: #9d174d; }
+        .AMBIVERT   { background: #ede9fe; color: #5b21b6; }
+
+        /* ── Empty state ── */
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #aaa;
+        }
+
+        .empty-state i {
+            font-size: 36px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* ── No results at all ── */
+        .no-data {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+        }
+
+        .no-data i {
+            font-size: 52px;
+            color: #d1d5db;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .no-data p {
+            color: #888;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="nav_left">
+            <img src="/images/logoImg.png" alt="elevateU logo">
+            <strong class="brand-name">elevateU</strong>
+        </div>
+
+        <div class="nav_center">
+            <a href="/">Home</a>
+            <a href="/about">About Us</a>
+            <a href="#footer">Contact Us</a>
+        </div>
+
+        <div class="nav_right">
+            <a href="/notifications" aria-label="Notifications">
+                <i class="fa-solid fa-bell icon bell"></i>
+            </a>
+
+            <a href="/profile" aria-label="Profile">
+                <i class="fa-solid fa-user icon"></i>
+            </a>
+
+            <a href="/logout" class="logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </nav>
+</header>
+
+
+<!-- MENTOR INFO -->
+<section class="mentor-header">
+    <i class="fa-solid fa-user-tie mentor-icon"></i>
+    <div class="mentor-info">
+        <span class="mentor-name"
+              th:text="${mentor.firstName + ' ' + mentor.lastName}">Mentor Name</span>
+        <span class="divider">|</span>
+        <span>Psychology Department</span>
+        <span class="divider">|</span>
+        <span>UG &amp; PG</span>
+    </div>
+</section>
+
+<!-- MAIN CONTENT  -->
+<main>
+    <div class="page-wrapper">
+
+        <a href="/mentor_dashboard" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+
+        <!-- Page header -->
+        <div class="page-header">
+            <h2>
+                <i class="fa-solid fa-chart-pie"></i>
+                Student Personality Reports
+            </h2>
+            <span class="result-count">
+                <i class="fa-solid fa-users"></i>
+                Total Results: <span th:text="${allResults.size()}">0</span>
+            </span>
+        </div>
+
+
+
+        <div class="summary-bar">
+            <div class="summary-card">
+                <div class="s-number ext-color" th:text="${extrovert}">0</div>
+                <div class="s-label ext-color">Extrovert</div>
+            </div>
+            <div class="summary-card">
+                <div class="s-number int-color" th:text="${introvert}">0</div>
+                <div class="s-label int-color">Introvert</div>
+            </div>
+            <div class="summary-card">
+                <div class="s-number ana-color" th:text="${analytical}">0</div>
+                <div class="s-label ana-color">Analytical</div>
+            </div>
+            <div class="summary-card">
+                <div class="s-number ami-color" th:text="${amiable}">0</div>
+                <div class="s-label ami-color">Amiable</div>
+            </div>
+            <div class="summary-card">
+                <div class="s-number amb-color" th:text="${ambivert}">0</div>
+                <div class="s-label amb-color">Ambivert</div>
+            </div>
+
+        </div>
+
+        <!-- No results at all -->
+        <div th:if="${allResults.empty}" class="no-data">
+            <i class="fa-solid fa-chart-pie"></i>
+            <p>No results yet. Students need to attempt tests first.</p>
+        </div>
+
+        <!-- Results grouped by test -->
+        <div th:each="entry : ${testResultsMap}">
+
+            <div th:if="${!entry.value.empty}" class="test-section">
+
+                <!-- Test header -->
+                <div class="test-section-header">
+                    <h3>
+                        <i class="fa-solid fa-brain"></i>
+                        <span th:text="${entry.key.testName}">Test Name</span>
+                    </h3>
+                    <span class="result-count"
+                          th:text="${entry.value.size() + ' Results'}">0 Results</span>
+                </div>
+
+                <!-- Student result rows -->
+                <div th:each="result : ${entry.value}" class="result-row">
+
+                    <div class="student-avatar">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+
+                    <div class="student-details">
+                        <div class="s-name"
+                             th:text="${result.student.firstName
+                                       + ' ' + result.student.lastName}">
+                            Student Name
+                        </div>
+                        <div class="s-roll"
+                             th:text="'Roll No: ' + ${result.student.rollNo}">
+                            Roll No
+                        </div>
+                    </div>
+
+                    <span class="personality-badge"
+                          th:classappend="${result.personalityType.name()}"
+                          th:text="${result.personalityType.name()}">
+                        TYPE
+                    </span>
+
+                </div>
+
+                <!-- No students attempted this test -->
+                <div th:if="${entry.value.empty}" class="empty-state">
+                    <i class="fa-solid fa-inbox"></i>
+                    <p>No students have attempted this test yet.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer id="footer">
+    <div class="footer_brand">
+        <strong class="brand-name">elevateU</strong>
+        <p class="tagline">Test, Talk, Transform.</p>
+    </div>
+
+    <div class="footer_links">
+        <strong>Quick Links</strong>
+        <ul>
+            <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/iqac">IQAC</a></li>
+        </ul>
+    </div>
+
+    <div class="footer_contact">
+        <strong>Contact Us</strong>
+        <p> elevateU Support Team</p>
+
+        <p><i class="fa-solid fa-location-dot"></i> Fergusson College
+            F.C. Road, Pune 411004.</p>
+
+        <p><i class="fa-solid fa-phone"></i> 020-67656000 </p>
+
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:wellness@gmail.com">elevateU@gmail.com</a></p>
+    </div>
+
+    <div class="rights_reserve">
+        © 2026 elevateU. All rights reserved.
+    </div>
+</footer>
+
+</body>
+</html>

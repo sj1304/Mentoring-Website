@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <link rel="stylesheet" href="/css/HeaderFooter.css">
+    <link rel="stylesheet" href="/css/index.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+
+        <header>
+            <nav>
+                <div class="nav_left">
+                    <img src="/images/logoImg.png" alt="elevateU logo">
+                    <strong class="brand-name">elevateU</strong>
+                </div>
+
+                <div class="nav_center">
+                    <a href="/">Home</a>
+                    <a href="/about">About Us</a>
+                    <a href="#footer">Contact Us</a>
+                    <a href="/login">Login</a>
+                    <a href="/registration">Register</a>
+                </div>
+
+                <div class="nav_right">
+
+                </div>
+            </nav>
+        </header>
+
+
+        <main>
+            <div class="slides_container">
+
+                <div id="mentorCarousel" class="carousel slide" data-bs-ride="carousel">
+
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item active">
+                            <img src="/images/slide4.png" class="d-block w-100" alt="Slide 3">
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="/images/1slide.png" class="d-block w-100" alt="Slide 1">
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="/images/slide1.png" class="d-block w-100" alt="Slide 2">
+                        </div>
+
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#mentorCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+
+                    <button class="carousel-control-next" type="button" data-bs-target="#mentorCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#mentorCarousel" data-bs-slide-to="0" class="active"></button>
+                        <button type="button" data-bs-target="#mentorCarousel" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#mentorCarousel" data-bs-slide-to="2"></button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="aboutUs">
+            </div>
+        </main>
+
+
+        <footer id="footer">
+            <div class="footer_brand">
+                <strong class="brand-name">elevateU</strong>
+                <p class="tagline">Test, Talk, Transform.</p>
+            </div>
+
+            <div class="footer_links">
+                <strong>Quick Links</strong>
+                <ul>
+                    <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/registration">Register</a></li>
+                    <li><a href="/iqac">IQAC</a></li>
+                </ul>
+            </div>
+
+            <div class="footer_contact">
+                <strong>Contact Us</strong>
+                <p> elevateU Support Team</p>
+
+                <p><i class="fa-solid fa-location-dot"></i> Fergusson College
+                    F.C. Road, Pune 411004.</p>
+
+                <p><i class="fa-solid fa-phone"></i> 020-67656000 </p>
+
+                <p><i class="fa-solid fa-envelope"></i> <a href="mailto:wellness@gmail.com">elevateU@gmail.com</a></p>
+            </div>
+
+            <div class="rights_reserve">
+                © 2026 elevateU. All rights reserved.
+            </div>
+        </footer>
+
+
+        <!-- 🔹 Small Top Right Quiz Popup -->
+        <div id="quizPopup" style="
+          position: fixed;
+          top: 85px;
+          right: 20px;
+          width: 250px;
+          background: #ffffff;
+          border-radius: 12px;
+          padding: 15px;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+          z-index: 9999;
+        ">
+
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="font-size:14px;">2-Minute Stress Quiz</strong>
+                <button onclick="closePopup()" style="
+              border:none;
+              background:none;
+              font-size:18px;
+              cursor:pointer;
+              line-height:1;">&times;</button>
+            </div>
+
+            <p style="font-size:13px; margin-top:8px;">
+                Discover your mental wellness score instantly.
+            </p>
+
+            <a href="/quiz" class="btn btn-sm btn-primary w-100">
+                Start Quiz
+            </a>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            function closePopup(){
+              document.getElementById("quizPopup").style.display = "none";
+            }
+        </script>
+
+</body>
+</html>

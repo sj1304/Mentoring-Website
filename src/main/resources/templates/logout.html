@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logged Out</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/HeaderFooter.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8f7;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── NAVBAR ── */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f7f7f5;
+            padding: 10px 20px;
+            box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #172518;
+        }
+
+        .nav-left img { height: 32px; }
+
+        /* ── MAIN CONTENT ── */
+        .logout-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .logout-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 52px 48px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+            max-width: 460px;
+            width: 100%;
+        }
+
+        .logout-icon-wrap {
+            width: 80px;
+            height: 80px;
+            background: #eef6f4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .logout-icon-wrap i {
+            font-size: 36px;
+            color: #3b8c6c;
+        }
+
+        .logout-card h2 {
+            font-size: 24px;
+            color: #172518;
+            margin-bottom: 12px;
+        }
+
+        .logout-card p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-login {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px;
+            background: #3b8c6c;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+
+        .btn-login:hover { background: #2f7a5f; }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px;
+            background: #f4f8f7;
+            color: #3b8c6c;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            border: 1.5px solid #3b8c6c;
+            transition: all 0.2s;
+        }
+
+        .btn-home:hover {
+            background: #eef6f4;
+        }
+
+        .divider-text {
+            color: #aaa;
+            font-size: 13px;
+            margin: 4px 0;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #2f4f4f;
+            color: white;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            padding: 20px 10%;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .rights {
+            grid-column: 1 / -1;
+            text-align: center;
+            border-top: 2px solid white;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="nav_left">
+            <img src="/images/logoImg.png" alt="elevateU logo">
+            <strong class="brand-name">elevateU</strong>
+        </div>
+
+        <div class="nav_center">
+            <a href="/">Home</a>
+            <a href="/about">About Us</a>
+            <a href="#footer">Contact Us</a>
+            <a href="/login">Login</a>
+            <a href="/registration">Register</a>
+        </div>
+
+        <div class="nav_right">
+            <a href="/notifications" aria-label="Notifications">
+                <i class="fa-solid fa-bell icon bell"></i>
+            </a>
+
+            <a href="/profile" aria-label="Profile">
+                <i class="fa-solid fa-user icon"></i>
+            </a>
+
+            <a href="/logout" class="logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </nav>
+</header>
+
+
+
+
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="logout-wrapper">
+    <div class="logout-card">
+
+        <div class="logout-icon-wrap">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </div>
+
+        <h2>You've Been Logged Out</h2>
+        <p>Thank you for using elevateU.<br>
+           Your session has ended safely.</p>
+
+        <div class="btn-group">
+            <a href="/login" class="btn-login">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Login Again
+            </a>
+            <span class="divider-text">or</span>
+            <a href="/" class="btn-home">
+                <i class="fa-solid fa-house"></i>
+                Go to Home
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer id="footer">
+    <div class="footer_brand">
+        <strong class="brand-name">elevateU</strong>
+        <p class="tagline">Test, Talk, Transform.</p>
+    </div>
+
+    <div class="footer_links">
+        <strong>Quick Links</strong>
+        <ul>
+            <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/registration">Register</a></li>
+            <li><a href="/iqac">IQAC</a></li>
+        </ul>
+    </div>
+
+    <div class="footer_contact">
+        <strong>Contact Us</strong>
+        <p> elevateU Support Team</p>
+
+        <p><i class="fa-solid fa-location-dot"></i> Fergusson College
+            F.C. Road, Pune 411004.</p>
+
+        <p><i class="fa-solid fa-phone"></i> 020-67656000 </p>
+
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:wellness@gmail.com">elevateU@gmail.com</a></p>
+    </div>
+
+    <div class="rights_reserve">
+        © 2026 elevateU. All rights reserved.
+    </div>
+</footer>
+
+</body>
+</html>
